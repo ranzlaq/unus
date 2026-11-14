@@ -16,6 +16,9 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
 
         _publisher = new WiFiDirectAdvertisementPublisher();
 
+        _publisher.Advertisement.ListenStateDiscoverability =
+            WiFiDirectAdvertisementListenStateDiscoverability.Normal;
+
         string selector = WiFiDirectDevice.GetDeviceSelector(
             WiFiDirectDeviceSelectorType.AssociationEndpoint);
 
