@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Unus.Core/Unus.Core.csproj" />
+    <Project Path="src/Unus.Input/Unus.Input.csproj" />
+    <Project Path="src/Unus.Network/Unus.Network.csproj" />
+    <Project Path="src/Unus.Windows/Unus.Windows.csproj" />
+  </Folder>
+</Solution>
