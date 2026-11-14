@@ -1,0 +1,11 @@
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\bin\Debug\netstandard2.0\Unus.Network.deps.json
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\bin\Debug\netstandard2.0\Unus.Network.dll
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\bin\Debug\netstandard2.0\Unus.Network.pdb
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\obj\Debug\netstandard2.0\Unus.Network.csproj.AssemblyReference.cache
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\obj\Debug\netstandard2.0\Unus.Network.GeneratedMSBuildEditorConfig.editorconfig
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\obj\Debug\netstandard2.0\Unus.Network.AssemblyInfoInputs.cache
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\obj\Debug\netstandard2.0\Unus.Network.AssemblyInfo.cs
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\obj\Debug\netstandard2.0\Unus.Network.csproj.CoreCompileInputs.cache
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\obj\Debug\netstandard2.0\Unus.Network.sourcelink.json
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\obj\Debug\netstandard2.0\Unus.Network.dll
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Network\obj\Debug\netstandard2.0\Unus.Network.pdb

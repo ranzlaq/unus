@@ -1,0 +1,11 @@
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\bin\Debug\netstandard2.0\Unus.Input.deps.json
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\bin\Debug\netstandard2.0\Unus.Input.dll
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\bin\Debug\netstandard2.0\Unus.Input.pdb
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\obj\Debug\netstandard2.0\Unus.Input.csproj.AssemblyReference.cache
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\obj\Debug\netstandard2.0\Unus.Input.GeneratedMSBuildEditorConfig.editorconfig
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\obj\Debug\netstandard2.0\Unus.Input.AssemblyInfoInputs.cache
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\obj\Debug\netstandard2.0\Unus.Input.AssemblyInfo.cs
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\obj\Debug\netstandard2.0\Unus.Input.csproj.CoreCompileInputs.cache
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\obj\Debug\netstandard2.0\Unus.Input.sourcelink.json
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\obj\Debug\netstandard2.0\Unus.Input.dll
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Input\obj\Debug\netstandard2.0\Unus.Input.pdb

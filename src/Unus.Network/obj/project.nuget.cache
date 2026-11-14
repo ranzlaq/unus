@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "oMn4lkj3Wk4=",
+  "dgSpecHash": "8eo5V+Bfafo=",
   "success": true,
   "projectFilePath": "D:\\MON_FILES\\Documents\\PYTHON\\UNUS\\unus\\src\\Unus.Network\\Unus.Network.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Mon\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Mon\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
