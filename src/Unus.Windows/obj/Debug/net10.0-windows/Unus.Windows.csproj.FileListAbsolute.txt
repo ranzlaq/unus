@@ -6,7 +6,6 @@ D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\bin\Debug\net10.0-windo
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net10.0-windows\MainWindow.g.cs
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net10.0-windows\App.g.cs
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net10.0-windows\Unus.Windows_MarkupCompile.cache
-D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net10.0-windows\Unus.Windows_MarkupCompile.lref
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net10.0-windows\MainWindow.baml
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net10.0-windows\Unus.Windows.g.resources
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net10.0-windows\Unus.Windows.GeneratedMSBuildEditorConfig.editorconfig
