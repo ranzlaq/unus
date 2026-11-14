@@ -1,11 +1,11 @@
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\Unus.Windows.csproj.AssemblyReference.cache
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\App.g.cs
+D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\Unus.Windows_MarkupCompile.cache
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\bin\Debug\net481\Unus.Windows.exe.config
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\bin\Debug\net481\Unus.Windows.exe
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\bin\Debug\net481\Unus.Windows.pdb
-D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\Unus.Windows.csproj.AssemblyReference.cache
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\MainWindow.baml
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\MainWindow.g.cs
-D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\App.g.cs
-D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\Unus.Windows_MarkupCompile.cache
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\Unus.Windows.g.resources
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\Unus.Windows.GeneratedMSBuildEditorConfig.editorconfig
 D:\MON_FILES\Documents\PYTHON\UNUS\unus\src\Unus.Windows\obj\Debug\net481\Unus.Windows.AssemblyInfoInputs.cache
