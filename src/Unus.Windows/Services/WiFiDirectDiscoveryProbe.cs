@@ -292,8 +292,8 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
 
     private TimeSpan GetRandomRefreshInterval()
     {
-        // Random interval between 4 and 6 seconds.
-        int milliseconds = _random.Next(4000, 6001);
+        // Random interval between 8 and 12 seconds.
+        int milliseconds = _random.Next(8000, 12001);
 
         return TimeSpan.FromMilliseconds(milliseconds);
     }
