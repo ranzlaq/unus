@@ -13,8 +13,11 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
     private readonly WiFiDirectAdvertisementPublisher _publisher;
     private readonly DeviceWatcher _watcher;
     private readonly Dispatcher _dispatcher;
+    private readonly DispatcherTimer _refreshTimer;
 
     private bool _disposed;
+    private bool _refreshAttempted;
+    private bool _refreshPending;
 
     public ObservableCollection<DiscoveredDevice> Devices { get; }
         = new();
@@ -29,12 +32,14 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
     {
         _dispatcher = dispatcher;
 
+        // Create the Wi-Fi Direct advertisement publisher.
         _publisher = new WiFiDirectAdvertisementPublisher();
 
-        // Make this laptop discoverable.
+        // Keep the laptop discoverable in foreground and background.
         _publisher.Advertisement.ListenStateDiscoverability =
             WiFiDirectAdvertisementListenStateDiscoverability.Intensive;
 
+        // Create the device watcher.
         string selector = WiFiDirectDevice.GetDeviceSelector(
             WiFiDirectDeviceSelectorType.AssociationEndpoint);
 
@@ -45,8 +50,19 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
             Array.Empty<string>(),
             DeviceInformationKind.AssociationEndpoint);
 
+        // Configure a one-time discovery refresh 30 seconds
+        // after initial enumeration completes.
+        _refreshTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(30)
+        };
+
+        _refreshTimer.Tick += OnRefreshTimerTick;
+
+        // Publisher events.
         _publisher.StatusChanged += OnPublisherStatusChanged;
 
+        // Watcher events.
         _watcher.Added += OnDeviceAdded;
         _watcher.Updated += OnDeviceUpdated;
         _watcher.Removed += OnDeviceRemoved;
@@ -65,16 +81,37 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
             _publisher.Start();
 
             PublisherStatus = _publisher.Status.ToString();
-            AddEvent($"Publisher Start() called. Status: {PublisherStatus}");
 
-            _watcher.Start();
+            AddEvent(
+                $"Publisher Start() called. Status: {PublisherStatus}");
 
-            WatcherStatus = _watcher.Status.ToString();
-            AddEvent($"Watcher Start() called. Status: {WatcherStatus}");
+            StartWatcher();
         }
         catch (Exception ex)
         {
             AddEvent($"START ERROR: {ex}");
+        }
+    }
+
+    private void StartWatcher()
+    {
+        if (_disposed)
+            return;
+
+        try
+        {
+            AddEvent("Starting device watcher...");
+
+            _watcher.Start();
+
+            WatcherStatus = _watcher.Status.ToString();
+
+            AddEvent(
+                $"Watcher Start() called. Status: {WatcherStatus}");
+        }
+        catch (Exception ex)
+        {
+            AddEvent($"WATCHER START ERROR: {ex}");
         }
     }
 
@@ -97,7 +134,9 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
     {
         RunOnUI(() =>
         {
-            AddEvent($"DEVICE ADDED EVENT RECEIVED. Watcher: {_watcher.Status}");
+            AddEvent(
+                $"DEVICE ADDED EVENT RECEIVED. Watcher: {_watcher.Status}");
+
             AddEvent($"DEVICE ADDED: {deviceInfo.Name}");
             AddEvent($"Device ID: {deviceInfo.Id}");
 
@@ -112,6 +151,10 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
                     DeviceId = deviceInfo.Id
                 });
             }
+            else
+            {
+                AddEvent("Device already exists in collection; keeping existing entry.");
+            }
         });
     }
 
@@ -121,7 +164,8 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
     {
         RunOnUI(() =>
         {
-            AddEvent($"DEVICE UPDATED: {update.Id}");
+            AddEvent(
+                $"DEVICE UPDATED: {update.Id} | Watcher: {_watcher.Status}");
         });
     }
 
@@ -137,7 +181,9 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
                 d => d.DeviceId == update.Id);
 
             if (existing != null)
+            {
                 Devices.Remove(existing);
+            }
         });
     }
 
@@ -149,9 +195,55 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
         {
             WatcherStatus = sender.Status.ToString();
 
-            AddEvent($"INITIAL ENUMERATION COMPLETED. Watcher: {WatcherStatus}");
-            AddEvent("WATCHER IS STILL EXPECTED TO MONITOR FOR DEVICE CHANGES.");
+            AddEvent(
+                $"INITIAL ENUMERATION COMPLETED. Watcher: {WatcherStatus}");
+
+            AddEvent(
+                "WATCHER IS STILL EXPECTED TO MONITOR FOR DEVICE CHANGES.");
+
+            // Schedule exactly one refresh for this experiment.
+            if (!_refreshAttempted && !_refreshPending)
+            {
+                AddEvent(
+                    "WATCHER REFRESH scheduled in 30 seconds.");
+
+                _refreshTimer.Start();
+            }
         });
+    }
+
+    private void OnRefreshTimerTick(object? sender, EventArgs e)
+    {
+        _refreshTimer.Stop();
+
+        if (_disposed || _refreshAttempted)
+            return;
+
+        _refreshAttempted = true;
+
+        if (_watcher.Status != DeviceWatcherStatus.Started &&
+            _watcher.Status != DeviceWatcherStatus.EnumerationCompleted)
+        {
+            AddEvent(
+                $"WATCHER REFRESH ABORTED. Current status: {_watcher.Status}");
+
+            return;
+        }
+
+        AddEvent("WATCHER REFRESH: stopping watcher...");
+
+        _refreshPending = true;
+
+        try
+        {
+            _watcher.Stop();
+        }
+        catch (Exception ex)
+        {
+            _refreshPending = false;
+
+            AddEvent($"WATCHER STOP ERROR: {ex}");
+        }
     }
 
     private void OnWatcherStopped(
@@ -163,6 +255,16 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
             WatcherStatus = sender.Status.ToString();
 
             AddEvent($"WATCHER STOPPED: {WatcherStatus}");
+
+            if (_disposed || !_refreshPending)
+                return;
+
+            _refreshPending = false;
+
+            AddEvent(
+                "WATCHER REFRESH: stopped successfully. Restarting watcher...");
+
+            StartWatcher();
         });
     }
 
@@ -188,6 +290,11 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
 
         AddEvent("Stopping discovery...");
 
+        _disposed = true;
+
+        _refreshTimer.Stop();
+        _refreshTimer.Tick -= OnRefreshTimerTick;
+
         _publisher.StatusChanged -= OnPublisherStatusChanged;
 
         _watcher.Added -= OnDeviceAdded;
@@ -203,7 +310,5 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
         }
 
         _publisher.Stop();
-
-        _disposed = true;
     }
 }
