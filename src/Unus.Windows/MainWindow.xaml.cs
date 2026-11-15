@@ -20,14 +20,46 @@ public partial class MainWindow : Window
         DiscoveredDevicesList.ItemsSource = _discoveryProbe.Devices;
         DiscoveryLogList.ItemsSource = _discoveryProbe.Events;
 
-        DiscoveryStatusText.Text = "Starting discovery...";
+        // Start in Idle. Discovery begins only when requested.
+        DiscoveryStatusText.Text = "Discovery off";
+
+        NoDevicesPanel.Visibility = Visibility.Visible;
 
         _discoveryProbe.Devices.CollectionChanged += OnDevicesChanged;
         _discoveryProbe.Events.CollectionChanged += OnEventsChanged;
 
         Closed += (_, _) => _discoveryProbe.Dispose();
+    }
 
-        _discoveryProbe.Start();
+    private void AddDeviceButton_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        _discoveryProbe.StartPairing();
+
+        DiscoveryStatusText.Text = "Active Pairing";
+        AddDeviceButton.IsEnabled = false;
+        RefreshButton.IsEnabled = true;
+        StopPairingButton.IsEnabled = true;
+    }
+
+    private void RefreshButton_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        _discoveryProbe.RefreshDiscoveryManually();
+    }
+
+    private void StopPairingButton_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        _discoveryProbe.StopPairing();
+
+        DiscoveryStatusText.Text = "Discovery off";
+        AddDeviceButton.IsEnabled = true;
+        RefreshButton.IsEnabled = false;
+        StopPairingButton.IsEnabled = false;
     }
 
     private void OnDevicesChanged(
@@ -39,8 +71,15 @@ public partial class MainWindow : Window
                 ? Visibility.Visible
                 : Visibility.Collapsed;
 
-        DiscoveryStatusText.Text =
-            $"{_discoveryProbe.Devices.Count} device(s) discovered";
+        if (_discoveryProbe.IsPairing)
+        {
+            DiscoveryStatusText.Text =
+                $"Active Pairing • {_discoveryProbe.Devices.Count} device(s)";
+        }
+        else
+        {
+            DiscoveryStatusText.Text = "Discovery off";
+        }
     }
 
     private void OnEventsChanged(

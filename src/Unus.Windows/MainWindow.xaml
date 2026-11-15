@@ -276,17 +276,50 @@
                                            Margin="0,5,0,0"/>
                             </StackPanel>
 
-                            <Border Background="#20352B"
-                                    CornerRadius="6"
-                                    Padding="10,5"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center">
-
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center">
+                                
                                 <TextBlock x:Name="DiscoveryStatusText"
-                                           Text="Starting discovery..."
+                                           Text="Discovery off"
                                            FontSize="10"
-                                           Foreground="#70D994"/>
-                            </Border>
+                                           Foreground="#70D994"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,14,0"/>
+
+                                <Button x:Name="AddDeviceButton"
+                                        Content="+ Add device"
+                                        Click="AddDeviceButton_Click"
+                                        Background="#2764B5"
+                                        Foreground="White"
+                                        BorderThickness="0"
+                                        Padding="14,9"
+                                        Margin="0,0,8,0"
+                                        Cursor="Hand"/>
+
+                                <Button x:Name="RefreshButton"
+                                        Content="↻ Refresh"
+                                        Click="RefreshButton_Click"
+                                        Background="#283444"
+                                        Foreground="#E6EDF3"
+                                        BorderThickness="0"
+                                        Padding="14,9"
+                                        Margin="0,0,8,0"
+                                        IsEnabled="False"
+                                        Cursor="Hand"/>
+
+                                <Button x:Name="StopPairingButton"
+                                        Content="Stop"
+                                        Click="StopPairingButton_Click"
+                                        Background="#512D35"
+                                        Foreground="#FFB4B4"
+                                        BorderThickness="0"
+                                        Padding="14,9"
+                                        IsEnabled="False"
+                                        Cursor="Hand"/>
+
+                            </StackPanel>
 
                         </Grid>
 
@@ -304,7 +337,7 @@
                                            FontWeight="SemiBold"
                                            HorizontalAlignment="Center"/>
 
-                                <TextBlock Text="Waiting for nearby Wi-Fi Direct devices..."
+                                <TextBlock Text="Select Add device to search for nearby Wi-Fi Direct devices."
                                            FontSize="11"
                                            Foreground="{StaticResource MutedBrush}"
                                            HorizontalAlignment="Center"
