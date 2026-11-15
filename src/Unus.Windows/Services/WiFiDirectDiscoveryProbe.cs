@@ -14,6 +14,7 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
     private readonly DeviceWatcher _watcher;
     private readonly Dispatcher _dispatcher;
     private readonly DispatcherTimer _refreshTimer;
+    private readonly Random _random = new();
 
     private bool _disposed;
     private bool _isPairing;
@@ -52,11 +53,8 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
             Array.Empty<string>(),
             DeviceInformationKind.AssociationEndpoint);
 
-        // Refresh discovery every 10 seconds during Active Pairing.
-        _refreshTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(10)
-        };
+        // Refresh discovery during Active Pairing.
+        _refreshTimer = new DispatcherTimer();
 
         _refreshTimer.Tick += OnRefreshTimerTick;
 
@@ -109,10 +107,12 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
         // Start scanning independently of publisher startup.
         StartWatcher();
 
-        // Begin the 10-second refresh interval.
+        // Begin the refresh interval.
+        _refreshTimer.Interval = GetRandomRefreshInterval();
         _refreshTimer.Start();
 
-        AddEvent("Automatic watcher refresh enabled: 10 seconds.");
+        AddEvent(
+            $"Automatic watcher refresh enabled. Next refresh in {_refreshTimer.Interval.TotalSeconds:F2} seconds.");
     }
 
     public void StopPairing()
@@ -281,9 +281,22 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
 
     private void OnRefreshTimerTick(object? sender, EventArgs e)
     {
+        // Randomize the next automatic refresh interval.
+        _refreshTimer.Interval = GetRandomRefreshInterval();
+
+        AddEvent(
+            $"Next automatic refresh scheduled in {_refreshTimer.Interval.TotalSeconds:F2} seconds.");
+
         RefreshDiscovery("AUTOMATIC");
     }
 
+    private TimeSpan GetRandomRefreshInterval()
+    {
+        // Random interval between 4 and 6 seconds.
+        int milliseconds = _random.Next(4000, 6001);
+
+        return TimeSpan.FromMilliseconds(milliseconds);
+    }
     public void RefreshDiscoveryManually()
     {
         RefreshDiscovery("MANUAL");
