@@ -33,7 +33,7 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
 
         // Make this laptop discoverable.
         _publisher.Advertisement.ListenStateDiscoverability =
-            WiFiDirectAdvertisementListenStateDiscoverability.Normal;
+            WiFiDirectAdvertisementListenStateDiscoverability.Intensive;
 
         string selector = WiFiDirectDevice.GetDeviceSelector(
             WiFiDirectDeviceSelectorType.AssociationEndpoint);
