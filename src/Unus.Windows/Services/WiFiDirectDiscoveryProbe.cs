@@ -97,6 +97,7 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
     {
         RunOnUI(() =>
         {
+            AddEvent($"DEVICE ADDED EVENT RECEIVED. Watcher: {_watcher.Status}");
             AddEvent($"DEVICE ADDED: {deviceInfo.Name}");
             AddEvent($"Device ID: {deviceInfo.Id}");
 
@@ -148,8 +149,8 @@ internal sealed class WiFiDirectDiscoveryProbe : IDisposable
         {
             WatcherStatus = sender.Status.ToString();
 
-            AddEvent(
-                $"INITIAL ENUMERATION COMPLETED. Watcher: {WatcherStatus}");
+            AddEvent($"INITIAL ENUMERATION COMPLETED. Watcher: {WatcherStatus}");
+            AddEvent("WATCHER IS STILL EXPECTED TO MONITOR FOR DEVICE CHANGES.");
         });
     }
 
