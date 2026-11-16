@@ -361,7 +361,6 @@
                                             Margin="0,0,0,8">
 
                                         <Grid>
-
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
@@ -369,23 +368,30 @@
 
                                             <StackPanel>
                                                 <TextBlock Text="{Binding Name}"
-                                                           FontSize="14"
-                                                           FontWeight="SemiBold"/>
+                                                        FontSize="14"
+                                                        FontWeight="SemiBold"/>
 
                                                 <TextBlock Text="{Binding DeviceId}"
-                                                           FontSize="10"
-                                                           Foreground="{StaticResource MutedBrush}"
-                                                           Margin="0,5,0,0"
-                                                           TextWrapping="Wrap"/>
+                                                        FontSize="10"
+                                                        Foreground="{StaticResource MutedBrush}"
+                                                        Margin="0,5,0,0"
+                                                        TextWrapping="Wrap"/>
                                             </StackPanel>
 
-                                            <TextBlock Grid.Column="1"
-                                                       Text="Discovered"
-                                                       Foreground="#70D994"
-                                                       FontSize="10"
-                                                       VerticalAlignment="Center"
-                                                       Margin="12,0,0,0"/>
+                                            <StackPanel Grid.Column="1"
+                                                        Orientation="Horizontal"
+                                                        VerticalAlignment="Center">
 
+                                                <Button Content="Connect"
+                                                        Click="ConnectButton_Click"
+                                                        Background="#2764B5"
+                                                        Foreground="White"
+                                                        BorderThickness="0"
+                                                        Padding="14,8"
+                                                        Margin="12,0,0,0"
+                                                        Cursor="Hand"/>
+
+                                            </StackPanel>
                                         </Grid>
                                     </Border>
 
@@ -393,6 +399,51 @@
                             </ItemsControl.ItemTemplate>
 
                         </ItemsControl>
+
+                    </StackPanel>
+
+                </Border>
+
+                <!-- CONNECTION STATUS -->
+
+                <Border Background="{StaticResource PanelBrush}"
+                        BorderBrush="{StaticResource BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="12"
+                        Padding="22"
+                        Margin="0,0,0,20">
+
+                    <StackPanel>
+
+                        <TextBlock Text="Connection status"
+                                FontSize="17"
+                                FontWeight="SemiBold"/>
+
+                        <TextBlock x:Name="ConnectionStatusText"
+                                Text="Not connected"
+                                FontSize="12"
+                                Foreground="{StaticResource MutedBrush}"
+                                Margin="0,10,0,0"
+                                TextWrapping="Wrap"/>
+
+                        <TextBlock x:Name="ConnectionEndpointText"
+                                Text=""
+                                FontSize="11"
+                                Foreground="{StaticResource MutedBrush}"
+                                Margin="0,8,0,0"
+                                TextWrapping="Wrap"/>
+
+                        <Button x:Name="DisconnectButton"
+                                Content="Disconnect"
+                                Click="DisconnectButton_Click"
+                                Background="#512D35"
+                                Foreground="#FFB4B4"
+                                BorderThickness="0"
+                                Padding="14,8"
+                                Margin="0,14,0,0"
+                                HorizontalAlignment="Left"
+                                IsEnabled="False"
+                                Cursor="Hand"/>
 
                     </StackPanel>
 
@@ -446,7 +497,7 @@
 
                 <!-- FOOTER -->
 
-                <TextBlock Text="UNUS • Wi-Fi Direct Discovery Test"
+                <TextBlock Text="UNUS • Wi-Fi Direct Connection Test"
                            FontSize="10"
                            Foreground="#64748B"
                            HorizontalAlignment="Right"
